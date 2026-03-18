@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: devops-app
-          image: johnnymaxm/devops-completo:latest
+          image: johnnymaxm/devops-app:latest
           ports:
             - containerPort: 3000
