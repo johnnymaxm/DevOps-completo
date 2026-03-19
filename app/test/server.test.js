@@ -28,6 +28,7 @@ test("GET / returns 200 and hello message", async () => {
   });
 });
 
+
 test("GET /metrics returns Prometheus text format", async () => {
   await withServer(async ({ port }) => {
     const res = await fetch(`http://127.0.0.1:${port}/metrics`);
@@ -40,4 +41,3 @@ test("GET /metrics returns Prometheus text format", async () => {
     assert.match(body, /process_cpu_user_seconds_total|process_cpu_seconds_total/);
   });
 });
-
