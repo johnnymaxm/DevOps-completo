@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: devops-app
 spec:
+  revisionHistoryLimit: 3
   replicas: 2
   selector:
     matchLabels:
