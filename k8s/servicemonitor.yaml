@@ -2,8 +2,9 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: devops-app-monitor
+  namespace: monitoring
   labels:
-    release: prometheus
+    app.kubernetes.io/instance: prometheus   # MUITO IMPORTANTE
 spec:
   namespaceSelector:
     matchNames:
