@@ -12,6 +12,20 @@ Este projeto entrega uma aplicacao web simples (Express) com endpoint de metrics
 - Integracao com Prometheus usando `ServiceMonitor` (requer Prometheus Operator) (`k8s/servicemonitor.yaml`)
 - GitOps com Argo CD apontando para o diretorio `k8s/` (`gitops/application.yaml`)
 
+## Screenshots do projeto
+
+### Kubernetes Dashboard (workloads)
+
+![Kubernetes Dashboard](docs/images/kubernetes-dashboard.png)
+
+### Grafana - DevOps API Dashboard
+
+![Grafana DevOps API Dashboard](docs/images/grafana-dashboard.png)
+
+### Argo CD - Aplicacao sincronizada
+
+![Argo CD Aplicacao](docs/images/argocd-app.png)
+
 ## Tecnologias
 
 - Aplicacao: Node.js + Express
