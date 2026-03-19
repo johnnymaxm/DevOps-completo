@@ -2,23 +2,23 @@ const express = require("express");
 const client = require("prom-client");
 
 const app = express();
+const port = 3000;
 
-// 🔥 Coleta métricas padrão (CPU, memória, etc)
+// 🔥 coleta métricas padrão (CPU, memória, etc)
 const collectDefaultMetrics = client.collectDefaultMetrics;
 collectDefaultMetrics();
 
 // rota principal
 app.get("/", (req, res) => {
-  res.json({ message: "DevOps" });
+  res.send("Hello DevOpssss 🚀");
 });
 
-// 📊 rota de métricas (IMPORTANTE)
+// 🔥 ROTA DE MÉTRICAS (ESSENCIAL)
 app.get("/metrics", async (req, res) => {
   res.set("Content-Type", client.register.contentType);
   res.end(await client.register.metrics());
 });
 
-// start server
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
+app.listen(port, () => {
+  console.log(`App rodando na porta ${port}`);
 });
