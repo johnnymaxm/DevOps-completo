@@ -5,6 +5,8 @@ metadata:
   namespace: argocd
 spec:
   project: default
+  # Adicione esta linha para manter apenas as últimas 3 revisões (pastinhas no gráfico)
+  revisionHistoryLimit: 3 
 
   source:
     repoURL: https://github.com/johnnymaxm/DevOps-completo
@@ -19,3 +21,8 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    # Esta seção garante que o ArgoCD limpe o cluster de forma mais agressiva e eficiente
+    syncOptions:
+      - CreateNamespace=true  # Cria o namespace se não existir
+      - PrunePropagationPolicy=foreground # Garante a exclusão correta de recursos dependentes
+      - PruneLast=true # Executa o prune ao final da sincronização
