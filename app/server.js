@@ -1,24 +1,34 @@
 const express = require("express");
 const client = require("prom-client");
 
-const app = express();
-const port = 3000;
+function createApp() {
+  const app = express();
 
-// 🔥 coleta métricas padrão (CPU, memória, etc)
-const collectDefaultMetrics = client.collectDefaultMetrics;
-collectDefaultMetrics();
+  // Use um Registry dedicado para que metricas nao sejam duplicadas em testes
+  // (ou em reinicializacoes do app dentro do mesmo processo).
+  const register = new client.Registry();
+  client.collectDefaultMetrics({ register });
 
-// rota principal
-app.get("/", (req, res) => {
-  res.send("Hello DevOpssss 🚀");
-});
+  // rota principal
+  app.get("/", (req, res) => {
+    res.send("Hello DevOpssss");
+  });
 
-// 🔥 ROTA DE MÉTRICAS (ESSENCIAL)
-app.get("/metrics", async (req, res) => {
-  res.set("Content-Type", client.register.contentType);
-  res.end(await client.register.metrics());
-});
+  // rota de metricas (essencial para Prometheus/ServiceMonitor)
+  app.get("/metrics", async (req, res) => {
+    res.set("Content-Type", register.contentType);
+    res.end(await register.metrics());
+  });
 
-app.listen(port, () => {
-  console.log(`App rodando na porta ${port}`);
-});
+  return app;
+}
+
+if (require.main === module) {
+  const port = process.env.PORT || 3000;
+  const app = createApp();
+  app.listen(port, () => {
+    console.log(`App rodando na porta ${port}`);
+  });
+}
+
+module.exports = { createApp };
